@@ -31,12 +31,10 @@ class MailSender {
 
   async aNewUserMail(template) {
     const mailOptions = {
-      from: "Notificacions <no-reply@ecoderce.com>",
-      subject: "Nuevo usuario registrado",
-      to: config.mail.GMAIL_ADDRESS,
-      html: template
+      to: config.mail.GMAIL_ADDRESS, // list of receivers
+      subject: `Nuevo usuario registrado`, // Subject line
+      html: template // html body
     };
-
     const response = await this.transporter.aNewUserMail(mailOptions);
     console.log("RESPUESTA MAIL:\n ", response);
   }

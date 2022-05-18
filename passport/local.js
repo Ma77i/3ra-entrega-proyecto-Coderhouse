@@ -73,7 +73,7 @@ module.exports = (passport) => {
       const cart = await cartModel.create({ user: user._id.toString() });
       logger.info("CARRO CREADO CON EXITO:\n" + cart);
 
-    //   try {
+/*       try {
         const template = `
           <div>
           <h1 style="color: blue;"> un usuario se a registrado en Ecoderce </h1>
@@ -81,13 +81,11 @@ module.exports = (passport) => {
         `
         await mailSender.aNewUserMail(template)
         logger.info("se registro un nuevo usuario")
-    //     res.status(200)
         
-    //   } catch (error) {
-    //     logger.error(error)
-    //     console.log(error)
-    //     res.status(500).send(error)
-    //   }
+      } catch (error) {
+        logger.error("MAILERROR: " + error)
+        console.log("MAILERROR: ", error)
+      } */
       
     } catch (err) {
         logger.error(err)

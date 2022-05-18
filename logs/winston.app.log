@@ -8,3 +8,13 @@
 2022-05-18T19:14:27.026Z error: undefined
 2022-05-18T19:17:19.286Z error: undefined
 2022-05-18T19:18:01.050Z error: undefined
+2022-05-18T20:03:15.290Z warn: la ruta no existe
+2022-05-18T20:03:25.735Z warn: la ruta no existe
+2022-05-18T20:08:37.402Z error: undefined
+2022-05-18T20:14:01.824Z error: undefined
+2022-05-18T20:18:50.429Z error: undefined
+2022-05-18T20:23:25.974Z error: MAILERROR: ReferenceError: res is not defined
+2022-05-18T20:23:25.981Z error: undefined
+2022-05-18T20:29:03.183Z error: MAILERROR: TypeError: this.transporter.aNewUserMail is not a function
+2022-05-18T20:32:24.538Z error: MAILERROR: TypeError: this.transporter.aNewUserMail is not a function
+2022-05-18T20:35:24.048Z error: MAILERROR: TypeError: this.transporter.aNewUserMail is not a function
