@@ -1,0 +1,27 @@
+<div class="container mx">
+
+    <h2>Cart</h2>
+    <table class="table table-sm table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+            </tr>
+        </thead>
+        <tbody class="">
+            {{#each products}}
+            <tr>
+              <td class="align-middle"><img src="{{this.thumbnail}}" alt="{{this.title}}" width="60"></td>
+              <td>{{this.title}}</td>
+              <td>{{this.price}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div>
+      <h5>{{total}}</h5>
+    </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="/order" class="btn btn-outline-dark" type="button">Continuar</a>
+        </div>
