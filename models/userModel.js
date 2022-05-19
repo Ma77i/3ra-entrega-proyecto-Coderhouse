@@ -16,12 +16,11 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   avatar: {
-    type: String,
-    default: "/static/img/icon.png"
+    type: String
   },
   phone: {
-    type: Number,
-    default: 0
+    type: String,
+    default: ""
   },
   adress: {
     type: String,

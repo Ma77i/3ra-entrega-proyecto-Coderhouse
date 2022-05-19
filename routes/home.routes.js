@@ -18,7 +18,7 @@ const multer  = require('multer')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './public/img/')
+      cb(null, "./public/img")
     },
     filename: (req, file, cb) => {
       const ext = file.mimetype.split("/")[1]
@@ -103,11 +103,13 @@ router.get("/addAvatar", auth, (req, res) => {
 
 router.post('/addAvatar', upload.single('avatar'), async(req, res, next)=> {
   const img = req.file
+  console.log(img.originalname)
   const userId = req.user
-  
   try {
       const user = await userModel.findById({ _id: userId._id})
-      user.avatar.replace("/static/img/avatar.png", img.originalname)
+      console.log("IMGEN:\n", user.avatar)
+      user.avatar = img.originalname
+      console.log("IMG:\n", user.avatar)
       await user.save()
       res.status(201).redirect("/")
   } catch (err) {
@@ -161,7 +163,16 @@ router.get("/order", auth, async (req, res) => {
         </ul>
       `
       mailSender.send(template, email, firstName)
-      twilioSender.sendWhatsapp(phone, firstName, email)
+      try {
+        await twilioSender.sendWhatsapp(phone, firstName, email)
+      } catch (error) {
+        console.log("wpp", error)
+      }
+      try {
+        twilioSender.sendSms(phone, firstName, email)
+      } catch (error) {
+        console.log("sms", error)
+      }
 
       context.sent = true
       logger.info("Orden realizada con exito")

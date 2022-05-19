@@ -79,9 +79,7 @@ module.exports = {
     try {
       const cart = await cartModel.findById({ _id: id });
       const idpd = await prodModel.findById({ _id: idprod });
-      if (cart.products.includes(idprod)) {
-        return
-      }
+
       cart.products.push(idpd);
       await cart.save();
       logger.info("Producto agregado con exito")
