@@ -73,19 +73,20 @@ module.exports = (passport) => {
       const cart = await cartModel.create({ user: user._id.toString() });
       logger.info("CARRO CREADO CON EXITO:\n" + cart);
 
-/*       try {
-        const template = `
-          <div>
-          <h1 style="color: blue;"> un usuario se a registrado en Ecoderce </h1>
-          </div>
-        `
-        await mailSender.aNewUserMail(template)
-        logger.info("se registro un nuevo usuario")
-        
-      } catch (error) {
-        logger.error("MAILERROR: " + error)
-        console.log("MAILERROR: ", error)
-      } */
+
+      const template = `
+        <div>
+        <h1 style="color: blue;"> 
+          Un usuario se a registrado en Ecoderce:
+        </h1>
+        <li>Nombre: ${user.firstName} ${user.lastName}</li>
+        <li>Mail: ${user.email}</li>
+        <li>Telefono: ${user.phone}</li>
+        </div>
+      `
+      await mailSender.aNewUserMail(template)
+      logger.info("se registro un nuevo usuario")
+
       
     } catch (err) {
         logger.error(err)

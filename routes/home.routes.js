@@ -102,20 +102,20 @@ router.get("/addAvatar", auth, (req, res) => {
 
 
 router.post('/addAvatar', upload.single('avatar'), async(req, res, next)=> {
-    const img = req.file
-    const userId = req.user
-    
-    try {
-        const user = await userModel.findById({ _id: userId._id})
-        user.avatar.replace("/static/img/avatar.png", img.originalname)
-        await user.save()
-        res.status(201).redirect("/")
-    } catch (err) {
-      logger.error(err)
-        console.log(err)
-        res.status(500).send(err)
-    }
-  })
+  const img = req.file
+  const userId = req.user
+  
+  try {
+      const user = await userModel.findById({ _id: userId._id})
+      user.avatar.replace("/static/img/avatar.png", img.originalname)
+      await user.save()
+      res.status(201).redirect("/")
+  } catch (err) {
+    logger.error(err)
+      console.log(err)
+      res.status(500).send(err)
+  }
+})
 
 // GET Cart
 router.get('/cart', auth, async (req, res) => {

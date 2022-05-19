@@ -5,11 +5,11 @@ const logger = require("../log/winston");
 
 class MailSender {
   constructor() {
-    // create reusable transporter object using the default SMTP transport
+    
     this.transporter = nodemailer.createTransport({
       service: "gmail",
       port: 587,
-      secure: false, // true for 465, false for other ports
+      secure: false,
       auth: {
         user: config.mail.GMAIL_ADDRESS,
         pass: config.mail.GMAIL_PWD
@@ -20,10 +20,10 @@ class MailSender {
   async send(template, email, firstName) {
     const mailOptions = {
       from: "<no-reply@ecoderce.com>",
-      to: email, // list of receivers
-      subject: `Nuevo pedido de ${firstName}, ${email}`, // Subject line
-      text: "Pedido realizado con exito", // plain text body
-      html: template // html body
+      to: email, 
+      subject: `Nuevo pedido de ${firstName}, ${email}`, 
+      text: "Pedido realizado con exito", 
+      html: template
     };
     const response = await this.transporter.sendMail(mailOptions);
     logger.info("Mail enviado, id:" + response.messageId);
@@ -31,12 +31,13 @@ class MailSender {
 
   async aNewUserMail(template) {
     const mailOptions = {
-      to: config.mail.GMAIL_ADDRESS, // list of receivers
-      subject: `Nuevo usuario registrado`, // Subject line
-      html: template // html body
+      to: config.mail.GMAIL_ADDRESS, 
+      subject: `Nuevo usuario registrado`,
+      text: `Se ha registrado un nuevo usuario con exito`,
+      html: template 
     };
-    const response = await this.transporter.aNewUserMail(mailOptions);
-    console.log("RESPUESTA MAIL:\n ", response);
+    const response = await this.transporter.sendMail(mailOptions);
+    logger.info(response.envelope);
   }
 }
 

@@ -11,10 +11,7 @@
     "cluster": "nodemon -r dotenv/config cluster.js 8080 cluster",
 
     "test:artillery": "artillery quick --count=50 -n 20 http://localhost:8080/login> result_Art-Fork.txt",
-    "test:artillery-cluster": "artillery quick --count=50 -n 20 http://localhost:8080> result_Art-cluster.txt",
-    "curl:bloq": "curl h",
-    "test:artillery-nobloq": "artillery quick --count=100 -n 40 http://localhost:3030/file/append?txt=Hola > result_nobloq.txt",
-    "test": "node ./tests/file.spec.js"
+    "test:artillery-cluster": "artillery quick --count=50 -n 20 http://localhost:8080> result_Art-cluster.txt"
   },
   "author": "",
   "license": "ISC",
