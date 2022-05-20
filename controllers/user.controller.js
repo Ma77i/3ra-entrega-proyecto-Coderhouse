@@ -45,7 +45,7 @@ exports.deleteOne = async (req, res) => {
   try {
     await userModel.deleteOne({ _id: id});
     logger.info("Usuario eliminado");
-    res.status(200)
+    res.sendStatus(200)
   } catch (error) {
     logger.error(error)
     res.status(500).send(error);

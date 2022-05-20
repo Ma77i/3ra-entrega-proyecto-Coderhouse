@@ -54,10 +54,12 @@ exports.getByUser = async (req, res) => {
   res.status(200).send(order)
 }
 
-
+// upload image
 exports.updateAvatar = async(req, res, next)=> {
   const img = req.file
-  console.log(img)
+  if (!img) {
+    logger.warn("Add a image")
+  }
   const userId = req.user
   try {
       await userModel.findByIdAndUpdate({ _id: userId._id}, { avatar: `/static/img/${img.originalname}`})
@@ -69,7 +71,7 @@ exports.updateAvatar = async(req, res, next)=> {
   }
 }
 
-
+// update sent order
 exports.updateSendOrder = async (req, res) => {
   const {id} = req.params
   const { firstName, email } = req.user

@@ -4,7 +4,8 @@ const prodModel = require("../models/productsModel");
 
 
 // logger
-const logger = require('../log/winston')
+const logger = require('../log/winston');
+const { captureRejections } = require("nodemailer/lib/xoauth2");
 
 
 module.exports = {
@@ -137,5 +138,17 @@ module.exports = {
       logger.error(error)
       res.status(500).send(error);
     }
+  },
+
+
+
+
+  getProductsLength: async (req, res) => {
+    const { id } = req.params
+    const cart = await cartModel.findById({_id: id}).lean()
+    cart.products.length
+
   }
 };
+
+

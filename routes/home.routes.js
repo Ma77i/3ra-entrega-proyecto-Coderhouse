@@ -5,7 +5,6 @@ const router = require('express').Router()
 // import models
 const productModel = require("../models/productsModel")
 const cartModel = require("../models/cartModel")
-const userModel = require("../models/userModel")
 const orderModel = require("../models/orderModel")
 
 
@@ -153,17 +152,8 @@ router.get("/order", auth, async (req, res) => {
       `
       mailSender.send(template, email, firstName)
       twilioSender.sendSms(firstName, email)
-      try {
-        twilioSender.sendSms(firstName, email)
-        await twilioSender.sendWhatsapp(phone, firstName, email)
-      } catch (error) {
-        console.log("wpp", error)
-      }
-      try {
-        twilioSender.sendSms(phone, firstName, email)
-      } catch (error) {
-        console.log("sms", error)
-      }
+      twilioSender.sendWhatsapp(phone, firstName, email)
+
 
       context.sent = true
       logger.info("Orden realizada con exito")

@@ -1,20 +1,57 @@
-const add = document.getElementById("add-to-cart");
+const addSpan = document.getElementById("addSpan")
+
+async function fadeOut(el) {
+  el.style.display = "none";
+};
+
+// ** FADE IN FUNCTION **
+async function fadeIn(el, display) {
+  el.style.display = display || "block";
+};
+
+async function badgeCarro(unidad) {
+
+  $("#badgeCart").remove();
+  if (unidad > 0) {
+      $("#test").prepend(`<span id="badgeCart" class="badge badge-pill badge-danger">${unidad}</span>`);
+  }
+  
+};
+
 
 async function addToCart(cartId, productId) {
   
-    try {
-      const res = await fetch(`/api/cart/${cartId}/products/${productId}`, { method: 'POST' })
-      console.log("Producto agregado con exito", res)
-      if (res.status != 200) {
-        return "error"
-      }
-    } catch (err) {
-      console.log("error:\n", err)
-    }
-  
+
+  const res = await fetch(`/api/cart/${cartId}/products/${productId}`, { method: 'POST' })
+  console.log("Producto agregado con exito", res)
+  if (res.status != 200) {
+    return "error"
+  }
+
+  await fadeIn(addSpan)
+  //setTimeout(() => fadeOut(addSpan), 500);
+    
+
     //await updateCartBadge()
 }
 
+
+const removeFromCart = async (cartId, productId) => {
+  try {
+    const res = await fetch(`/api/cart/${cartId}/products/${productId}`, { method: 'DELETE' })
+    console.log("Producto borrado con exito", res)
+    if (res.status != 200) {
+      return "error"
+    }
+  
+    //await updateCartBadge()
+  
+    const el = document.getElementById(productId)
+    el.parentElement.removeChild(el)
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 
 const deleteAllOrders = async()=>{
@@ -38,3 +75,7 @@ const sendOrder = (pedidoId) => {
     cell.innerHTML = 'Si'
   })
 }
+
+
+
+
