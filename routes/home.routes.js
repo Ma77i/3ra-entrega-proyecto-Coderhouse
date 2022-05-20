@@ -9,6 +9,10 @@ const userModel = require("../models/userModel")
 const orderModel = require("../models/orderModel")
 
 
+// import controllers
+const orderController = require("../controllers/order.controller")
+
+
 // middleware
 const auth = require('../middlewares/auth')
 
@@ -21,8 +25,7 @@ const storage = multer.diskStorage({
       cb(null, "./public/img")
     },
     filename: (req, file, cb) => {
-      const ext = file.mimetype.split("/")[1]
-      cb(null, `${file.fieldname}.${ext}`)
+      cb(null, `${file.originalname}`)
     }
   })
   
@@ -100,24 +103,10 @@ router.get("/addAvatar", auth, (req, res) => {
   }
 })
 
+// upload avatar
+router.post('/addAvatar', upload.single('avatar'), orderController.updateAvatar)
 
-router.post('/addAvatar', upload.single('avatar'), async(req, res, next)=> {
-  const img = req.file
-  console.log(img.originalname)
-  const userId = req.user
-  try {
-      const user = await userModel.findById({ _id: userId._id})
-      console.log("IMGEN:\n", user.avatar)
-      user.avatar = img.originalname
-      console.log("IMG:\n", user.avatar)
-      await user.save()
-      res.status(201).redirect("/")
-  } catch (err) {
-    logger.error(err)
-      console.log(err)
-      res.status(500).send(err)
-  }
-})
+
 
 // GET Cart
 router.get('/cart', auth, async (req, res) => {
@@ -163,7 +152,9 @@ router.get("/order", auth, async (req, res) => {
         </ul>
       `
       mailSender.send(template, email, firstName)
+      twilioSender.sendSms(firstName, email)
       try {
+        twilioSender.sendSms(firstName, email)
         await twilioSender.sendWhatsapp(phone, firstName, email)
       } catch (error) {
         console.log("wpp", error)
@@ -188,12 +179,8 @@ router.get("/order", auth, async (req, res) => {
 
 //GET profile
 router.get("/account", auth, async (req, res)=>{
-  const userId = req.user
   const { firstName, lastName, avatar, userName, email } = req.user
-  
-  const user = await userModel.findById({ _id: userId._id })
-  console.log(user)
-  res.render("account", {user, firstName, lastName, avatar, userName, email })
+  res.render("account", { firstName, lastName, avatar, userName, email })
 })
 
 

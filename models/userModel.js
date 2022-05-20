@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   avatar: {
-    type: String
+    type: String,
+    default: "/static/img/icon.png"
   },
   phone: {
     type: String,

@@ -1,5 +1,6 @@
 // import models
 const orderModel = require("../models/orderModel");
+const userModel = require("../models/userModel");
 
 
 // twilio
@@ -52,6 +53,22 @@ exports.getByUser = async (req, res) => {
   logger.info("Orden del usuario con id: " + order.userId)
   res.status(200).send(order)
 }
+
+
+exports.updateAvatar = async(req, res, next)=> {
+  const img = req.file
+  console.log(img)
+  const userId = req.user
+  try {
+      await userModel.findByIdAndUpdate({ _id: userId._id}, { avatar: `/static/img/${img.originalname}`})
+      res.status(201).redirect("/")
+  } catch (err) {
+    logger.error(err)
+      console.log(err)
+      res.status(500).send(err)
+  }
+}
+
 
 exports.updateSendOrder = async (req, res) => {
   const {id} = req.params

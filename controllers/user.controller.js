@@ -39,3 +39,15 @@ exports.deleteAll = async (req, res) => {
     res.status(500).send(error);
   }
 }
+
+exports.deleteOne = async (req, res) => {
+  const { id } = req.params
+  try {
+    await userModel.deleteOne({ _id: id});
+    logger.info("Usuario eliminado");
+    res.status(200)
+  } catch (error) {
+    logger.error(error)
+    res.status(500).send(error);
+  }
+}
