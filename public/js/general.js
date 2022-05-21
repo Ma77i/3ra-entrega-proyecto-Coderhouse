@@ -5,31 +5,33 @@ async function fadeOut(el) {
 };
 
 // ** FADE IN FUNCTION **
-async function fadeIn(el, display) {
-  el.style.display = display || "block";
+function fadeIn(elem) {
+  console.log("FadeIn")
+  return elem.style.display = "block";
 };
 
-async function badgeCarro(unidad) {
+/* async function badgeCarro(unidad) {
 
   $("#badgeCart").remove();
   if (unidad > 0) {
       $("#test").prepend(`<span id="badgeCart" class="badge badge-pill badge-danger">${unidad}</span>`);
   }
   
-};
+}; */
 
 
 async function addToCart(cartId, productId) {
   
+  fadeIn(addSpan)
 
   const res = await fetch(`/api/cart/${cartId}/products/${productId}`, { method: 'POST' })
+  console.log("STATUS", res.status)
   console.log("Producto agregado con exito", res)
-  if (res.status != 200) {
+  if (res.status != 201) {
     return "error"
   }
 
-  await fadeIn(addSpan)
-  //setTimeout(() => fadeOut(addSpan), 500);
+  setTimeout(() => fadeOut(addSpan), 500);
     
 
     //await updateCartBadge()
