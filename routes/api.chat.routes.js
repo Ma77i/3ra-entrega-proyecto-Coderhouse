@@ -1,7 +1,8 @@
-const { Router } = require("express")
+const router = require("express").Router()
+
+
 
 const controller = require("../controllers/chat.controller")
-const router = Router()
 
 
 

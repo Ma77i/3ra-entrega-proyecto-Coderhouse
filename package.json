@@ -9,7 +9,6 @@
     "start:cluster": "node -r dotenv/config cluster.js 8080 cluster",
     "dev": "nodemon -r dotenv/config cluster.js",
     "cluster": "nodemon -r dotenv/config cluster.js 8080 cluster",
-
     "test:artillery": "artillery quick --count=50 -n 20 http://localhost:8080/login> result_Art-Fork.txt",
     "test:artillery-cluster": "artillery quick --count=50 -n 20 http://localhost:8080> result_Art-cluster.txt"
   },
@@ -17,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "artillery": "^2.0.0-15",
-    "autocannon": "^7.8.1",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
@@ -29,11 +27,8 @@
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
-    "forever": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^1.0.3",
     "log4js": "^6.4.6",
-    "minimist": "^1.2.6",
     "moment": "^2.29.1",
     "mongoose": "^6.2.8",
     "multer": "^1.4.4",
@@ -44,8 +39,6 @@
     "passport": "^0.5.2",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "^1.0.0",
-    "pino": "^7.11.0",
-    "pm2": "^5.2.0",
     "session-file-store": "^1.5.0",
     "socket.io": "^4.4.1",
     "twilio": "^3.77.0",

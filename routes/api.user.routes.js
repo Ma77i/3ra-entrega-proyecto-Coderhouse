@@ -1,24 +1,15 @@
+// Import router
+const router = require('express').Router();
 
 // Controllers
 const { getAllUsers, getUserId, deleteAll, deleteOne } = require('../controllers/user.controller');
 
 
-// Import router
-const Router = require('express').Router;
-const router = Router()
 
-
-// GET all users
-router.get('/', getAllUsers)
-
-// GET user by id
-router.get('/:id', getUserId)
-
-// DELETE all users
-router.delete("", deleteAll)
-
-// DELETE one user
-router.delete("/:id", deleteOne)
+router.get("", getAllUsers) // GET all users
+router.get("/:id", getUserId) // GET user by id
+router.delete("", deleteAll) // DELETE all users
+router.delete("/:id", deleteOne) // DELETE one user
 
 
 

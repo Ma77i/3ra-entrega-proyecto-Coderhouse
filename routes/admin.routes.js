@@ -2,15 +2,10 @@
 const router = require("express").Router()
 
 
-// import Models
-const productsModel = require('../models/productsModel')
-const orderModel = require('../models/orderModel')
-const userModel = require('../models/userModel')
-
-
 //import controllers 
 const productController = require("../controllers/products.controller")
 const orderController = require("../controllers/order.controller")
+const adminController = require("../controllers/admin.controller")
 
 
 // middleware
@@ -21,32 +16,17 @@ const auth = require('../middlewares/auth')
 const passport = require('passport')
 
 
-// logger
-const logger = require('../log/winston')
-
 
 
 // GET admin index
-router.get("/", auth, (req, res) => {
-  const { firstname, lastname } = req.user
-  res.render("admin/index", { name: `${firstname} ${lastname}` })
-})
-
+router.get("/", auth, adminController.index)
 
 
 // GET users admin
-router.get("/users", auth, async (req, res) => {
-
-  const users = await userModel.find().lean()
-  res.render("admin/users", { users })
-})
-
-
+router.get("/users", auth, adminController.getUsers)
 
 // GET users add user
 router.get("/addUser", auth, (req, res) => res.render("admin/addUser"))
-
-
 
 // POST add user
 router.post("/addUser",
@@ -60,17 +40,10 @@ router.post("/addUser",
 
 
 // GET products admin
-router.get("/products", auth, async (req, res) => {
-  const products = await productsModel.find().lean()
-  res.render("admin/products", { products: products } )
-})
-
-
+router.get("/products", auth, adminController.getProducts)
 
 // GET add products
 router.get("/addProduct", auth, (req, res) => res.render("admin/addProduct"))
-
-
 
 // POST add product
 router.post("/addProduct", productController.post)
@@ -78,10 +51,7 @@ router.post("/addProduct", productController.post)
 
 
 // GET pedidos admin
-router.get("/orders", auth, async (req, res) => {
-  const orders = await orderModel.find().lean()
-  res.render("admin/orders", { orders } )
-})
+router.get("/orders", auth, adminController.getOrders)
 
 
 // DELETE orders

@@ -11,7 +11,7 @@ const logger = winston.createLogger({
       format: combine(colorize(), timestamp(), myFormat)
     }),
     new winston.transports.File({
-      filename: './logs/winston.app.log',
+      filename: './log/logs/winston.app.log',
       level: 'warn',
       format: combine(timestamp(), myFormat)
     })

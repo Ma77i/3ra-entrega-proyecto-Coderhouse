@@ -40,7 +40,9 @@ const app = express();
 const server = http.createServer(app)
 const io = new Server(server)
 
-
+// template handlebars
+const templateEngine = require('./engine')
+templateEngine(app)
 
 
 app.use(express.json())
@@ -86,7 +88,7 @@ io.on('connection', async (socket) => {
     const norm = await chatModel.getNorm()
     socket.emit("msNorm", norm)
     
-    })
+})
     
     
 // routers
@@ -111,17 +113,7 @@ app.use("/info", infoRouter)
 
 
 
-//-------- HANDLEBARS
 
-//engine
-const { engine } = require('express-handlebars')
-
-app.engine("handlebars", engine({
-    layoutsDir: path.join(__dirname, "views/layout"),
-    partialsDir : 'views/partials',
-    defaultLayout: 'index'
-}))
-app.set("view engine", "handlebars")
 
 
 // Mongoose connection
